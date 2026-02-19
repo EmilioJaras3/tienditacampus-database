@@ -6,8 +6,8 @@ services:
     container_name: tc-prod-postgres
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_password}
+      POSTGRES_USER: ${POSTGRES_USER:-tc_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-TienditaCampus2026DB!}
       POSTGRES_DB: ${POSTGRES_DB:-tienditacampus}
     ports:
       - "5432:5432"
