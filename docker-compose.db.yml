@@ -13,11 +13,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      # Se asume que init, migrations, scripts, y seeds están en el mismo directorio que este compose
       - ./init:/docker-entrypoint-initdb.d
       - ./migrations:/migrations
       - ./scripts:/scripts
       - ./seeds:/seeds
+    networks:
+      - tc-network
 
   mongo:
     image: mongo:7
@@ -31,3 +32,8 @@ services:
 volumes:
   postgres_data:
   mongo_data:
+
+networks:
+  tc-network:
+    name: tc-network
+    driver: bridge
