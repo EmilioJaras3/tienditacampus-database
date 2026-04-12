@@ -72,10 +72,12 @@ GRANT USAGE ON SCHEMA public TO tc_app;
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE
     users,
     products,
-    sales,
-    inventory,
+    daily_sales,
+    sale_details,
+    inventory_records,
+    daily_inventory_snapshots,
     orders,
-    reports,
+    order_items,
     weekly_reports
 TO tc_app;
 
@@ -102,10 +104,12 @@ GRANT USAGE ON SCHEMA public TO tc_readonly;
 GRANT SELECT ON TABLE
     users,
     products,
-    sales,
-    inventory,
+    daily_sales,
+    sale_details,
+    inventory_records,
+    daily_inventory_snapshots,
     orders,
-    reports,
+    order_items,
     weekly_reports,
     audit_logs,
     projects,
