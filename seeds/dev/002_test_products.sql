@@ -1,10 +1,3 @@
--- ============================================================
--- TienditaCampus - Seed DEV: Productos de Prueba
--- ============================================================
--- ⚠️ SOLO PARA DESARROLLO — No ejecutar en producción
--- ============================================================
-
--- Productos de prueba asociados al primer vendedor de prueba
 WITH seller AS (
     SELECT id FROM users WHERE email = 'vendedor1@test.com' LIMIT 1
 ),

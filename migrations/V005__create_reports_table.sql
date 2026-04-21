@@ -1,8 +1,3 @@
--- ============================================================
--- TienditaCampus - Migración V005: Tabla de Reportes
--- ============================================================
-
--- Resúmenes semanales generados automáticamente
 CREATE TABLE IF NOT EXISTS weekly_reports (
     id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     seller_id       UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -21,9 +16,7 @@ CREATE TABLE IF NOT EXISTS weekly_reports (
     UNIQUE(seller_id, week_start)
 );
 
--- Índices
 CREATE INDEX IF NOT EXISTS idx_reports_seller ON weekly_reports(seller_id);
 CREATE INDEX IF NOT EXISTS idx_reports_week ON weekly_reports(week_start);
 
--- Índice GIN para búsquedas en JSONB de predicciones
 CREATE INDEX IF NOT EXISTS idx_reports_predictions ON weekly_reports USING GIN (demand_prediction);

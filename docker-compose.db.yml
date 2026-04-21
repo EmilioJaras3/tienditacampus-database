@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: tc-prod-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-tc_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-TienditaCampus2026DB!}
+      POSTGRES_DB: ${POSTGRES_DB:-tienditacampus}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+      - ./migrations:/migrations
+      - ./scripts:/scripts
+      - ./seeds:/seeds
+    networks:
+      - tc-network
+
+  mongo:
+    image: mongo:7
+    container_name: tc-prod-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  postgres_data:
+  mongo_data:
+
+networks:
+  tc-network:
+    name: tc-network
+    driver: bridge

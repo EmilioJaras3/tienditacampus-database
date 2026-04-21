@@ -1,7 +1,3 @@
--- ============================================================
--- TienditaCampus - Migración V004: Tabla de Inventario
--- ============================================================
-
 CREATE TABLE IF NOT EXISTS inventory_records (
     id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     seller_id       UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -16,13 +12,11 @@ CREATE TABLE IF NOT EXISTS inventory_records (
     updated_at      TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Índices
 CREATE INDEX IF NOT EXISTS idx_inventory_seller ON inventory_records(seller_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_product ON inventory_records(product_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_date ON inventory_records(record_date);
 CREATE INDEX IF NOT EXISTS idx_inventory_status ON inventory_records(status);
 
--- Trigger
 CREATE TRIGGER update_inventory_updated_at
     BEFORE UPDATE ON inventory_records
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

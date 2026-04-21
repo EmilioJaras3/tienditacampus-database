@@ -1,11 +1,3 @@
--- ============================================================
--- TienditaCampus - Seed DEV: Usuarios de Prueba
--- ============================================================
--- ⚠️ SOLO PARA DESARROLLO — No ejecutar en producción
--- Contraseñas hasheadas con Argon2id (generadas en la capa de aplicación)
--- ============================================================
-
--- Contraseña para todos los usuarios de prueba: 'test1234' (hasheada con Argon2id)
 INSERT INTO users (email, password_hash, first_name, last_name, phone, role, is_email_verified) VALUES
     (
         'vendedor1@test.com',

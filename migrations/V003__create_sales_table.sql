@@ -1,8 +1,3 @@
--- ============================================================
--- TienditaCampus - Migración V003: Tablas de Ventas
--- ============================================================
-
--- Registro diario de ventas
 CREATE TABLE IF NOT EXISTS daily_sales (
     id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     seller_id       UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -19,7 +14,6 @@ CREATE TABLE IF NOT EXISTS daily_sales (
     UNIQUE(seller_id, sale_date)
 );
 
--- Detalle de ventas por producto
 CREATE TABLE IF NOT EXISTS sale_details (
     id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     daily_sale_id   UUID NOT NULL REFERENCES daily_sales(id) ON DELETE CASCADE,
@@ -33,14 +27,12 @@ CREATE TABLE IF NOT EXISTS sale_details (
     created_at      TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Índices
 CREATE INDEX IF NOT EXISTS idx_daily_sales_seller ON daily_sales(seller_id);
 CREATE INDEX IF NOT EXISTS idx_daily_sales_date ON daily_sales(sale_date);
 CREATE INDEX IF NOT EXISTS idx_daily_sales_seller_date ON daily_sales(seller_id, sale_date);
 CREATE INDEX IF NOT EXISTS idx_sale_details_daily ON sale_details(daily_sale_id);
 CREATE INDEX IF NOT EXISTS idx_sale_details_product ON sale_details(product_id);
 
--- Trigger
 CREATE TRIGGER update_daily_sales_updated_at
     BEFORE UPDATE ON daily_sales
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
